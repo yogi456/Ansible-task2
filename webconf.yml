@@ -1,0 +1,21 @@
+- hosts: all
+  tasks:
+     - name: Install the httpd
+       package: 
+          name: "httpd"
+          state: present
+     - name: configuring web server 
+       copy:
+           dest: /etc/httpd/conf.d/yogi.conf
+           src: files/local.conf
+     - name: Download code from github 
+       get_url:
+           url: "https://raw.githubusercontent.com/yogi456/test-web1/master/index.html"
+           dest: /var/www/html/
+       tags: webgit
+
+     - name: Starting services
+       service:
+           name: httpd
+           state: restarted
+

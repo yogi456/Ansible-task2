@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars_files:
+         - secrets.yml
+
+  tasks:
+     - ec2:
+         key_name: "ansible-task2"
+         instance_type: t2.micro
+         image: "ami-0ebc1ac48dfd14136"
+         wait: yes
+         group_id: "sg-02da7315e9f5fe3a4"
+         count: 1
+         region: "ap-south-1"
+         vpc_subnet_id: "subnet-b2407cda"
+         assign_public_ip: yes
+         aws_access_key: "{{ access_key }}"
+         aws_secret_key: "{{ secret_key }}"
+ 

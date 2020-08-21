@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+ 
+      - name: Create a new EC2 key
+        ec2_key:
+            name: ansible-task2
+            region: ap-south-1
+        register: ec2_key_result
+ 
+      - name: Save private key
+        copy: content="{{ ec2_key_result.key.private_key }}" dest="./ansible-key.pem" mode=0400
+        when: ec2_key_result.changed
